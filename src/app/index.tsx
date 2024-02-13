@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, SectionList, Text, View } from 'react-native';
 
 import { Header } from '@/components/header';
 import { CategoryButton } from '@/components/category-button';
-import { CATEGORIES } from '@/utils/data/products';
+import { Product } from '@/components/product';
+import { CATEGORIES, MENU } from '@/utils/data/products';
 
 export default function Home() {
   const [category, setCategory] = useState(CATEGORIES[0]);
@@ -30,6 +31,21 @@ export default function Home() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 12, paddingHorizontal: 20 }}
         horizontal
+      />
+
+      <SectionList
+        sections={MENU}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <Product data={item} />}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text className="text-xl text-white font-heading mt-8 mb-3">
+            {title}
+          </Text>
+        )}
+        className="flex-1 p-5"
+        contentContainerStyle={{ paddingBottom: 100 }}
+        stickySectionHeadersEnabled={false}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
