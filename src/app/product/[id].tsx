@@ -1,5 +1,5 @@
 import { Image, Text, View } from 'react-native';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 
 import { PRODUCTS } from '@/utils/data/products';
@@ -21,7 +21,7 @@ export default function Product() {
     navigation.goBack();
   }
 
-  if (!product) return null;
+  if (!product) return <Redirect href="/" />;
 
   return (
     <View className="flex-1">
@@ -32,6 +32,7 @@ export default function Product() {
       />
 
       <View className="p-5 mt-8 flex-1">
+        <Text className="text-white text-xl font-heading">{product.title}</Text>
         <Text className="text-lime-400 text-2xl font-heading my-2">
           {formatCurrency(product.price)}
         </Text>
