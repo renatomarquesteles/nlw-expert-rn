@@ -52,6 +52,7 @@ npx expo start
 
 <div style="display:flex">
   <img src=".github/1.png" width="250" />
+  <img src=".github/5.png" width="250" />
   <img src=".github/2.png" width="250" />
   <img src=".github/3.png" width="250" />
   <img src=".github/4.jpg" width="250" />
