@@ -15,3 +15,5 @@ npm i clsx
 npm i zustand
 
 npm i react-native-keyboard-aware-scroll-view
+
+npx expo install @react-native-async-storage/async-storage
