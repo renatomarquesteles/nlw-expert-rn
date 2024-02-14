@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Feather } from '@expo/vector-icons';
 
@@ -9,6 +9,7 @@ import { formatCurrency } from '@/utils/format-currency';
 import { Input } from '@/components/input';
 import { Button } from '@/components/button';
 import { LinkButton } from '@/components/link-button';
+import { ProductProps } from '@/utils/data/products';
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -16,6 +17,24 @@ export default function Cart() {
     (total, product) => total + product.price * product.quantity,
     0
   );
+
+  function handleProductRemove(product: ProductProps) {
+    Alert.alert(
+      'Remove product',
+      `Would you like to remove 1x ${product.title} from your cart?`,
+      [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'Remove',
+          onPress: () => {
+            cartStore.remove(product.id);
+          },
+        },
+      ]
+    );
+  }
 
   return (
     <View className="flex-1 pt-8">
@@ -27,7 +46,11 @@ export default function Cart() {
             {cartStore.products.length > 0 ? (
               <View className="border-b border-slate-700">
                 {cartStore.products.map((product) => (
-                  <Product key={product.id} data={product} />
+                  <Product
+                    key={product.id}
+                    data={product}
+                    onPress={() => handleProductRemove(product)}
+                  />
                 ))}
               </View>
             ) : (
